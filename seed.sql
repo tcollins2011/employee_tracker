@@ -34,24 +34,8 @@ INSERT INTO role(title,salary,department_id)
 VALUES('Fire twirler',20000,3), ("Fire Starter", 3000.55,3), ("Mongoose Catcher", 100000.5,4), ("Mongoose Showman", 60000,4);
 
 INSERT INTO employee(first_name,last_name,role_id,manager_id)
-VALUEs('Spencer','Slama',4,null),('Bronwyn',"Collins",7,null),('Kelsey',"Schwarma",8,2),('Marcia','Newkirk',1,null);
--- * **department**:
+VALUES('Spencer','Slama',4,null),('Bronwyn',"Collins",7,null),('Kelsey',"Schwarma",8,2),('Marcia','Newkirk',1,null);
 
---   * **id** - INT PRIMARY KEY
---   * **name** - VARCHAR(30) to hold department name
-
--- * **role**:
-
---   * **id** - INT PRIMARY KEY
---   * **title** -  VARCHAR(30) to hold role title
---   * **salary** -  DECIMAL to hold role salary
---   * **department_id** -  INT to hold reference to department role belongs to
-
--- * **employee**:
-
---   * **id** - INT PRIMARY KEY
---   * **first_name** - VARCHAR(30) to hold employee first name
---   * **last_name** - VARCHAR(30) to hold employee last name
---   * **role_id** - INT to hold reference to role employee has
---   * **manager_id** - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager
-  
+SELECT * FROM department;
+SELECT * FROM role;
+SELECT * FROM employee;
