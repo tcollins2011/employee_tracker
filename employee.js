@@ -152,3 +152,27 @@ function add(){
         }
     })
 }
+
+function updateEmployeeRole(){
+   inquirer.prompt([
+       {
+           name: "id",
+           message: "What is the id of the employee that you want to update?"  
+       },
+       {
+           name: "role",
+           message: "What is this employee's new role?"
+       }
+   ]).then((answer) =>{
+       connection.query(`UPDATE employee SET ? WHERE ?`,
+       {
+               id : answer.id,
+               role_id : answer.role
+           
+       },function(err){
+           if (err) throw err
+           console.log(`Employee ${id}'s role was updated to ${role}`)
+       })
+       menu()
+   })
+}
