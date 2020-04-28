@@ -52,7 +52,7 @@ function view(){
         console.log(`Selecting all ${type}s \n`);
         connection.query("SELECT * FROM " + type, function(err, res) {
         if (err) throw err;
-        console.log(res);
+        console.table(res);
         menu()
   });
     })
@@ -67,8 +67,10 @@ function add(){
             choices:["department","role","employee"]
         }
     ]).then(({type}) => {
+        console.log(type)
         switch (type){
             case "department":
+                console.log("I made it to department")
                 inquirer.prompt([
                     {
                         name:"name",
@@ -84,7 +86,43 @@ function add(){
                     })
                     menu()
                 })
+                break
+                case "employee":
+                console.log("I made it to employee")
+                inquirer.prompt([
+                    {
+                        name: "first_name",
+                        message: "please enter the employee's first name"
+                    },
+                    {
+                        name: "last_name",
+                        message: "please enter the employee's last name"
+                    },
+                    {
+                        name: "role_id",
+                        message: "Please enter the role id this employee is associated with"
+                    },
+                    {
+                        name: "manager_id",
+                        message: "please enter the employee id of a manager or null"
+                    }
+                ]).then((answer) => {
+                    connection.query(`INSERT INTO ${type} SET ?`, 
+                    {
+                        first_name : answer.first_name,
+                        last_name : answer.last_name,
+                        role_id : answer.role_id,
+                        manager_id : answer.manager_id
+                    }, function(err,res){
+                        if (err) throw err
+                        console.log( type + ' was added')
+                    })
+                    menu()
+
+                }) 
+                break
             case "role":
+                console.log("I made it to roll")
                 inquirer.prompt([
                     {
                         name: "title",
@@ -116,38 +154,6 @@ function add(){
                     })
                     menu()
                 })
-            case "employee":
-                inquirer.prompt([
-                    {
-                        name: "first_name",
-                        message: "please enter the employee's first name"
-                    },
-                    {
-                        name: "last_name",
-                        message: "please enter the employee's last name"
-                    },
-                    {
-                        name: "role_id",
-                        message: "Please enter the role id this employee is associated with"
-                    },
-                    {
-                        name: "manager_id",
-                        message: "please enter the employee id of a manager or null"
-                    }
-                ]).then((answer) => {
-                    connection.query(`INSERT INTO ${type} SET ?`, 
-                    {
-                        first_name : answer.first_name,
-                        last_name : answer.last_name,
-                        role_id : answer.role_id,
-                        manager_id : answer.manager_id
-                    }, function(err,res){
-                        if (err) throw err
-                        console.log( type + ' was added')
-                    })
-                    menu()
-
-                })
                 
         }
     })
@@ -164,14 +170,15 @@ function updateEmployeeRole(){
            message: "What is this employee's new role?"
        }
    ]).then((answer) =>{
-       connection.query(`UPDATE employee SET ? WHERE ?`,
-       {
-               id : answer.id,
-               role_id : answer.role
+       connection.query(`UPDATE employee SET role_id = ? WHERE id = ?`,[
+       
+            answer.role,
+            answer.id
            
-       },function(err){
+       ],
+           function(err,data){
            if (err) throw err
-           console.log(`Employee ${id}'s role was updated to ${role}`)
+           console.log(`Employee ${answer.id}'s role was updated to ${answer.role}`)
        })
        menu()
    })
