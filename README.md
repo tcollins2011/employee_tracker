@@ -9,6 +9,8 @@
 
 Project Description:
 Allows you to add and remove employee,department,and role info from a mySQL database.
+
+
 GitHub Address: https://github.com/tcollins2011/employee_tracker
 
 License Type:
