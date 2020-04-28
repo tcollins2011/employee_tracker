@@ -22,7 +22,7 @@ Test Run Commands
 node employee.js in bash to launch the server .Ensure that you construct the database first in mysql using the seed file.
 
 
-Author Contact Information:
+Author Contact Information
 
 Tyler Collins
 tyler@nhlp.com
